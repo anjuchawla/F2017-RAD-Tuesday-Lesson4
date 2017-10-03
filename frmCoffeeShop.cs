@@ -21,8 +21,8 @@ namespace Coffee_Sales
     public partial class frmCoffeeShop : Form
     {
         //module level variables - have default values
-        private decimal subTotalAmount, totalAmount, grandTotal;
-        private RadioButton selectedRadioButton = null;
+        private decimal subTotalAmount, totalAmount, grandTotal;//0
+        private RadioButton selectedRadioButton ; //null
 
         //module level constants
         const decimal TaxRate =  0.13m ;
@@ -65,6 +65,60 @@ namespace Coffee_Sales
                 //quantity = Convert.ToInt32(txtQuantity.Text);
                 if(quantity > 0)
                 {
+                    //is coffee selected
+                    if(selectedRadioButton != null)
+                    {
+                        //please do not use individual if's-either use if/else or switch
+                        switch(selectedRadioButton.Name)
+                        {
+                            case "rdoCappuccino":
+                                price = CappuccinoPrice;
+                                break;
+
+                            case "rdoEspresso":
+                                price = EspressoPrice;
+                                break;
+
+                            case "rdoLatte":
+                                price = LattePrice;
+                                break;
+                            case "rdoIcedCappuccino":
+                            case "rdoIcedLatte":
+                                price = IcedPrice;
+                                break;
+                            default: price = 0;
+                                break;
+
+                        }//switch
+
+                        //do the calculations
+                        itemAmount = quantity * price;
+                        subTotalAmount += itemAmount;
+                        if (chkTakeout.Checked)
+                            tax = TaxRate * subTotalAmount;
+                        else
+                            tax = 0;
+
+                        totalAmount = subTotalAmount + tax;
+
+                        //display results
+                        txtItemAmount.Text = itemAmount.ToString("c");
+                        txtSubtotal.Text = subTotalAmount.ToString("c");
+                        txtTax.Text = tax.ToString("c");
+                        txtTotalDue.Text = totalAmount.ToString("c");
+
+
+
+
+                    }
+                    else
+                        {
+                        MessageBox.Show("You must provide choose a coffee type.",
+                     "Coffee Selection Missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+                    }
+
 
 
                 }
@@ -127,9 +181,14 @@ namespace Coffee_Sales
             btnNewOrder.Enabled = false;
 
         }
-
+        /// <summary>
+        /// Sets the coffee selected by the user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
+            selectedRadioButton = (RadioButton)sender;
           
         }
 
@@ -142,17 +201,57 @@ namespace Coffee_Sales
 
         private void ClearInput()
         {
+            txtQuantity.Clear();
+            txtItemAmount.Clear();
+            if(selectedRadioButton != null)
+            {
+                selectedRadioButton.Checked = false;
+                selectedRadioButton = null;
+            }
+            txtQuantity.Focus();
           
         }
-
+        /// <summary>
+        /// 
+        /// A new order is placed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnNewOrder_Click(object sender, EventArgs e)
         {
+            DialogResult confirm;
+
+            confirm = MessageBox.Show("Are you sure you want to place a new order?",
+                "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button1);
+
+            if(confirm == DialogResult.Yes)
+
+            {
+                ClearInput();
+                btnClear.Enabled = false;
+                btnNewOrder.Enabled = false;
+                txtItemAmount.Clear();
+                txtSubtotal.Clear();
+                txtTax.Clear();
+                txtTotalDue.Clear();
+                chkTakeout.Enabled = true;
+                chkTakeout.Checked = false;
+               
+
+                //reset total
+                subTotalAmount = 0;
+                totalAmount = 0;
+
+
+            }
            
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
             //close the form
+            this.Close();
            
         }
     }
