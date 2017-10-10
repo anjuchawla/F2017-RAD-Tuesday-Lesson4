@@ -16,6 +16,8 @@ namespace Coffee_Sales
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            frmSplashScreen ss = new frmSplashScreen();
+            ss.ShowDialog();
             Application.Run(new frmCoffeeShop());
 
         }

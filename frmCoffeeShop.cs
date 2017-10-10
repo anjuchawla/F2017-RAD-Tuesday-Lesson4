@@ -211,6 +211,13 @@ namespace Coffee_Sales
             txtQuantity.Focus();
           
         }
+
+        private void tsmiAbout_Click(object sender, EventArgs e)
+        {
+            frmAboutBox aboutUs = new frmAboutBox();
+            aboutUs.ShowDialog();
+        }
+
         /// <summary>
         /// 
         /// A new order is placed
