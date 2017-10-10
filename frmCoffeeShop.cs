@@ -21,8 +21,10 @@ namespace Coffee_Sales
     public partial class frmCoffeeShop : Form
     {
         //module level variables - have default values
-        private decimal subTotalAmount, totalAmount, grandTotal;//0
+        private decimal subTotalAmount, totalAmount;//0
         private RadioButton selectedRadioButton ; //null
+        internal static decimal grandTotalAmount = 0, average;
+        internal static int customerCount;
 
         //module level constants
         const decimal TaxRate =  0.13m ;
@@ -56,7 +58,9 @@ namespace Coffee_Sales
             //change settings
             chkTakeout.Enabled = false;
             btnNewOrder.Enabled = true;
+            tsmiNewOrder.Enabled = true;
             btnClear.Enabled = true;
+            tsmiClear.Enabled = true;
 
 
             try
@@ -166,18 +170,14 @@ namespace Coffee_Sales
             }
 
 
-
-           
-
-                      
-
-
         }
 
         private void frmCoffeeShop_Load(object sender, EventArgs e)
         {
             //initial seetings
             btnClear.Enabled = false;
+            tsmiClear.Enabled = false;
+            tsmiNewOrder.Enabled = false;
             btnNewOrder.Enabled = false;
 
         }
@@ -217,6 +217,76 @@ namespace Coffee_Sales
             frmAboutBox aboutUs = new frmAboutBox();
             aboutUs.ShowDialog();
         }
+        /// <summary>
+        /// Allow the user to change the font of the output
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsmiFont_Click(object sender, EventArgs e)
+        {
+           
+            //show the font dialog box
+            fontDialog1.ShowDialog();
+            //save the user options
+            Font selectedFont = fontDialog1.Font;
+            //change the font of the output
+            txtItemAmount.Font = selectedFont;
+            txtSubtotal.Font = selectedFont;
+            txtTax.Font = selectedFont;
+            txtTotalDue.Font = selectedFont;
+
+        }
+        /// <summary>
+        /// Allows the user to  change the color of the output
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsmiColor_Click(object sender, EventArgs e)
+        {
+            //show the color dialog box
+            colorDialog1.ShowDialog();
+            //save the user's choice
+            Color selectedColor = colorDialog1.Color;
+            //redundant assignments
+            txtItemAmount.BackColor = txtItemAmount.BackColor;
+            txtSubtotal.BackColor = txtSubtotal.BackColor;
+            // txtTax.BackColor = txtTax.BackColor;
+             txtTotalDue.BackColor = txtTotalDue.BackColor;
+
+            //change the color of the output
+
+            txtItemAmount.ForeColor = selectedColor;
+            txtSubtotal.ForeColor = selectedColor;
+            txtTax.ForeColor = selectedColor;
+            txtTotalDue.ForeColor = selectedColor;
+
+
+        }
+        /// <summary>
+        /// Calculates the average and shows the insummary information,if any
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsmiSummary_Click(object sender, EventArgs e)
+        {
+            if(totalAmount > 0)
+            {
+                btnNewOrder_Click(sender, e);
+            }
+
+            if(customerCount > 0)
+            {
+                average = grandTotalAmount / customerCount;
+                frmSummary summary = new frmSummary();
+                summary.ShowDialog();
+
+            }
+            else
+            {
+                MessageBox.Show("No customers serviced yet...no summary information",
+                    "Summary Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
 
         /// <summary>
         /// 
@@ -235,9 +305,18 @@ namespace Coffee_Sales
             if(confirm == DialogResult.Yes)
 
             {
+                //accumulate the summary information
+                if(totalAmount > 0) //if there is an order
+                {
+                    customerCount++;
+                    grandTotalAmount += totalAmount;
+
+                }
                 ClearInput();
                 btnClear.Enabled = false;
+                tsmiClear.Enabled = false;
                 btnNewOrder.Enabled = false;
+                tsmiNewOrder.Enabled = false;
                 txtItemAmount.Clear();
                 txtSubtotal.Clear();
                 txtTax.Clear();
@@ -249,6 +328,8 @@ namespace Coffee_Sales
                 //reset total
                 subTotalAmount = 0;
                 totalAmount = 0;
+
+
 
 
             }

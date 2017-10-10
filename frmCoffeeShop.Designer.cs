@@ -55,9 +55,9 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.btnNewOrder = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tsmiAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiNewOrder = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSummary = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,6 +71,8 @@
             this.tsmiColor = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.groupBox1.SuspendLayout();
             this.grpCoffee.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -280,6 +282,7 @@
             // 
             // txtTax
             // 
+            this.txtTax.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtTax.Location = new System.Drawing.Point(209, 80);
             this.txtTax.Name = "txtTax";
             this.txtTax.ReadOnly = true;
@@ -352,19 +355,6 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(120, 52);
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.editToolStripMenuItem,
-            this.helpToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(645, 28);
-            this.menuStrip1.TabIndex = 7;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
             // tsmiAbout
             // 
             this.tsmiAbout.Name = "tsmiAbout";
@@ -378,6 +368,19 @@
             this.tsmiExit.Size = new System.Drawing.Size(119, 24);
             this.tsmiExit.Text = "E&xit";
             this.tsmiExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(645, 28);
+            this.menuStrip1.TabIndex = 7;
+            this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
@@ -402,6 +405,7 @@
             this.tsmiSummary.Name = "tsmiSummary";
             this.tsmiSummary.Size = new System.Drawing.Size(181, 26);
             this.tsmiSummary.Text = "&Summary";
+            this.tsmiSummary.Click += new System.EventHandler(this.tsmiSummary_Click);
             // 
             // toolStripSeparator1
             // 
@@ -452,12 +456,14 @@
             this.tsmiFont.Name = "tsmiFont";
             this.tsmiFont.Size = new System.Drawing.Size(210, 26);
             this.tsmiFont.Text = "&Font...";
+            this.tsmiFont.Click += new System.EventHandler(this.tsmiFont_Click);
             // 
             // tsmiColor
             // 
             this.tsmiColor.Name = "tsmiColor";
             this.tsmiColor.Size = new System.Drawing.Size(210, 26);
             this.tsmiColor.Text = "C&olor...";
+            this.tsmiColor.Click += new System.EventHandler(this.tsmiColor_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -470,7 +476,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.tsmiAbout_Click);
             // 
@@ -554,6 +560,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiColor;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.FontDialog fontDialog1;
     }
 }
 

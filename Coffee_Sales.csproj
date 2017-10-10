@@ -65,6 +65,12 @@
     <Compile Include="frmSplashScreen.Designer.cs">
       <DependentUpon>frmSplashScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSummary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSummary.Designer.cs">
+      <DependentUpon>frmSummary.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmAboutBox.resx">
@@ -75,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSplashScreen.resx">
       <DependentUpon>frmSplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSummary.resx">
+      <DependentUpon>frmSummary.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
